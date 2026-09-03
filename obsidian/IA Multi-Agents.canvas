@@ -1,0 +1,317 @@
+{
+  "nodes": [
+    {
+      "id": "orchestrateur",
+      "type": "file",
+      "file": "pipeline-orchestrateur.md",
+      "x": -240,
+      "y": -140,
+      "width": 480,
+      "height": 280,
+      "color": "#6b7280"
+    },
+    {
+      "id": "a1",
+      "type": "file",
+      "file": "agents/agent-1-ingestion.md",
+      "x": -210,
+      "y": -1220,
+      "width": 420,
+      "height": 340,
+      "color": "#2b6cff"
+    },
+    {
+      "id": "a2",
+      "type": "file",
+      "file": "agents/agent-2-analyse.md",
+      "x": 699,
+      "y": -695,
+      "width": 420,
+      "height": 340,
+      "color": "#22a06b"
+    },
+    {
+      "id": "a3",
+      "type": "file",
+      "file": "agents/agent-3-decoupage.md",
+      "x": 699,
+      "y": 355,
+      "width": 420,
+      "height": 340,
+      "color": "#e5b800"
+    },
+    {
+      "id": "a4",
+      "type": "file",
+      "file": "agents/agent-4-montage.md",
+      "x": -210,
+      "y": 880,
+      "width": 420,
+      "height": 340,
+      "color": "#e03131"
+    },
+    {
+      "id": "a5",
+      "type": "file",
+      "file": "agents/agent-5-verification.md",
+      "x": -1119,
+      "y": 355,
+      "width": 420,
+      "height": 340,
+      "color": "#8b5cf6"
+    },
+    {
+      "id": "a6",
+      "type": "file",
+      "file": "agents/agent-6-publication.md",
+      "x": -1119,
+      "y": -695,
+      "width": 420,
+      "height": 340,
+      "color": "#0fb5b5"
+    },
+    {
+      "id": "bulle-a1-a2",
+      "type": "text",
+      "text": "💬 **Transcript + timecodes**\n`A1 → A2`",
+      "x": 675,
+      "y": -1489,
+      "width": 300,
+      "height": 120,
+      "color": "#2b6cff"
+    },
+    {
+      "id": "bulle-a2-a3",
+      "type": "text",
+      "text": "💬 **Moments forts + scoring**\n`A2 → A3`",
+      "x": 1500,
+      "y": -60,
+      "width": 300,
+      "height": 120,
+      "color": "#22a06b"
+    },
+    {
+      "id": "bulle-a3-a4",
+      "type": "text",
+      "text": "💬 **Clips bruts**\n`A3 → A4`",
+      "x": 675,
+      "y": 1369,
+      "width": 300,
+      "height": 120,
+      "color": "#e5b800"
+    },
+    {
+      "id": "bulle-a4-a5",
+      "type": "text",
+      "text": "💬 **Short monté**\n`A4 → A5`",
+      "x": -975,
+      "y": 1369,
+      "width": 300,
+      "height": 120,
+      "color": "#e03131"
+    },
+    {
+      "id": "bulle-a5-a6",
+      "type": "text",
+      "text": "💬 **Short validé + métadonnées**\n`A5 → A6`",
+      "x": -1800,
+      "y": -60,
+      "width": 300,
+      "height": 120,
+      "color": "#8b5cf6"
+    },
+    {
+      "id": "bulle-a6-orchestrateur",
+      "type": "text",
+      "text": "💬 **Publication + performances**\n`A6 → ORCH.`",
+      "x": -975,
+      "y": -1489,
+      "width": 300,
+      "height": 120,
+      "color": "#0fb5b5"
+    },
+    {
+      "id": "legende",
+      "type": "text",
+      "x": -2400,
+      "y": -1500,
+      "width": 460,
+      "height": 460,
+      "text": "## 🧪 Laboratoire IA multi-agents\n\n**Cercle** : 6 agents immobiles, un rôle chacun.\n**Centre** : le pipeline / orchestrateur.\n**Bulles** : ce qui transite d'un agent au suivant.\n\n| | Agent |\n|---|---|\n| 🔵 | 1 — Ingestion |\n| 🟢 | 2 — Analyse |\n| 🟡 | 3 — Découpage |\n| 🔴 | 4 — Montage |\n| 🟣 | 5 — Vérification |\n| 🩵 | 6 — Publication |\n\nDouble-clic sur une carte pour ouvrir la fiche de l'agent et modifier son comportement.\n\nNouvel agent → copier `templates/agent.md`."
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-a1-bulle-a1-a2",
+      "fromNode": "a1",
+      "fromSide": "right",
+      "toNode": "bulle-a1-a2",
+      "toSide": "left",
+      "color": "#2b6cff"
+    },
+    {
+      "id": "e-bulle-a1-a2-a2",
+      "fromNode": "bulle-a1-a2",
+      "fromSide": "bottom",
+      "toNode": "a2",
+      "toSide": "top",
+      "color": "#2b6cff"
+    },
+    {
+      "id": "e-a2-bulle-a2-a3",
+      "fromNode": "a2",
+      "fromSide": "right",
+      "toNode": "bulle-a2-a3",
+      "toSide": "left",
+      "color": "#22a06b"
+    },
+    {
+      "id": "e-bulle-a2-a3-a3",
+      "fromNode": "bulle-a2-a3",
+      "fromSide": "left",
+      "toNode": "a3",
+      "toSide": "right",
+      "color": "#22a06b"
+    },
+    {
+      "id": "e-a3-bulle-a3-a4",
+      "fromNode": "a3",
+      "fromSide": "bottom",
+      "toNode": "bulle-a3-a4",
+      "toSide": "top",
+      "color": "#e5b800"
+    },
+    {
+      "id": "e-bulle-a3-a4-a4",
+      "fromNode": "bulle-a3-a4",
+      "fromSide": "left",
+      "toNode": "a4",
+      "toSide": "right",
+      "color": "#e5b800"
+    },
+    {
+      "id": "e-a4-bulle-a4-a5",
+      "fromNode": "a4",
+      "fromSide": "left",
+      "toNode": "bulle-a4-a5",
+      "toSide": "right",
+      "color": "#e03131"
+    },
+    {
+      "id": "e-bulle-a4-a5-a5",
+      "fromNode": "bulle-a4-a5",
+      "fromSide": "top",
+      "toNode": "a5",
+      "toSide": "bottom",
+      "color": "#e03131"
+    },
+    {
+      "id": "e-a5-bulle-a5-a6",
+      "fromNode": "a5",
+      "fromSide": "left",
+      "toNode": "bulle-a5-a6",
+      "toSide": "right",
+      "color": "#8b5cf6"
+    },
+    {
+      "id": "e-bulle-a5-a6-a6",
+      "fromNode": "bulle-a5-a6",
+      "fromSide": "right",
+      "toNode": "a6",
+      "toSide": "left",
+      "color": "#8b5cf6"
+    },
+    {
+      "id": "e-a6-bulle-a6-orchestrateur",
+      "fromNode": "a6",
+      "fromSide": "top",
+      "toNode": "bulle-a6-orchestrateur",
+      "toSide": "bottom",
+      "color": "#0fb5b5"
+    },
+    {
+      "id": "e-bulle-a6-orchestrateur-orchestrateur",
+      "fromNode": "bulle-a6-orchestrateur",
+      "fromSide": "bottom",
+      "toNode": "orchestrateur",
+      "toSide": "top",
+      "color": "#0fb5b5"
+    },
+    {
+      "id": "e-orch-a1",
+      "fromNode": "orchestrateur",
+      "fromSide": "top",
+      "toNode": "a1",
+      "toSide": "bottom",
+      "label": "Vidéo source",
+      "color": "#9ca3af"
+    },
+    {
+      "id": "e-orch-a2",
+      "fromNode": "orchestrateur",
+      "fromSide": "right",
+      "toNode": "a2",
+      "toSide": "left",
+      "color": "#9ca3af"
+    },
+    {
+      "id": "e-orch-a3",
+      "fromNode": "orchestrateur",
+      "fromSide": "right",
+      "toNode": "a3",
+      "toSide": "left",
+      "color": "#9ca3af"
+    },
+    {
+      "id": "e-orch-a4",
+      "fromNode": "orchestrateur",
+      "fromSide": "bottom",
+      "toNode": "a4",
+      "toSide": "top",
+      "color": "#9ca3af"
+    },
+    {
+      "id": "e-orch-a5",
+      "fromNode": "orchestrateur",
+      "fromSide": "left",
+      "toNode": "a5",
+      "toSide": "right",
+      "color": "#9ca3af"
+    },
+    {
+      "id": "e-orch-a6",
+      "fromNode": "orchestrateur",
+      "fromSide": "left",
+      "toNode": "a6",
+      "toSide": "right",
+      "color": "#9ca3af"
+    },
+    {
+      "id": "e-feedback-a1",
+      "fromNode": "a5",
+      "fromSide": "top",
+      "toNode": "a1",
+      "toSide": "bottom",
+      "label": "Feedback de correction",
+      "color": "#8b5cf6"
+    },
+    {
+      "id": "e-feedback-a3",
+      "fromNode": "a5",
+      "fromSide": "right",
+      "toNode": "a3",
+      "toSide": "left",
+      "label": "Feedback de correction",
+      "color": "#8b5cf6"
+    },
+    {
+      "id": "e-feedback-a4",
+      "fromNode": "a5",
+      "fromSide": "right",
+      "toNode": "a4",
+      "toSide": "left",
+      "label": "Feedback de correction",
+      "color": "#8b5cf6"
+    }
+  ]
+}
