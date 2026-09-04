@@ -26,7 +26,10 @@ obsidian/
 │   └── agent-6-publication.md    🩵 publication + performances
 ├── Tableau de bord.md            ← l'autonomie des 6 agents, régénéré
 ├── memoire/agent-1..6.json       ← la mémoire brute (écrite par le script)
-├── templates/agent.md            ← le moule pour créer un nouvel agent
+├── journal/                      ← les cheminements, un par exécution
+├── templates/
+│   ├── agent.md                  ← le moule pour créer un nouvel agent
+│   └── cheminement.md            ← le moule pour relire une exécution
 ├── avatars/                      ← les images statiques des personnages
 └── outils/
     ├── generer-canvas.py         ← régénère la toile (cercle, positions, liens)
@@ -69,6 +72,30 @@ documentation : c'est ce bloc-là qui change ce que l'agent fait.
 
 La section **🧬 Mémoire de l'agent** est faite pour être enrichie à la main après
 chaque exécution : règle apprise, erreur constatée, correction appliquée.
+
+## Le cheminement — comment on trouve l'erreur
+
+Un agent qui rend seulement son résultat est un agent qu'on ne peut pas corriger :
+on voit le symptôme, jamais la cause. Alors chaque agent doit d'abord écrire
+**comment il y est arrivé**, en six sections :
+
+| Section | Ce qu'elle révèle |
+|---|---|
+| 1. Reçu | a-t-il eu la bonne matière au départ ? |
+| 2. Compris | a-t-il compris autre chose que ce qu'on demandait ? |
+| 3. Étapes | en a-t-il sauté une, ou inversé deux ? |
+| **4. Décisions** | **a-t-il choisi pour une mauvaise raison ?** |
+| **5. Doutes** | **a-t-il tranché au hasard là où il fallait demander ?** |
+| 6. Rendu | a-t-il rendu autre chose que ce qui était attendu ? |
+
+L'erreur est presque toujours en 4 ou en 5.
+
+Ce protocole n'est écrit **qu'une seule fois**, dans la constante `PROTOCOLE` de
+`outils/apprendre.py`, et il est ajouté au prompt des six agents à chaque
+régénération. Tu le modifies là, ils l'ont tous.
+
+Les cheminements se rangent dans `journal/`, sur le modèle de
+`templates/cheminement.md`. Voir `journal/README.md`.
 
 ## La boucle d'apprentissage
 

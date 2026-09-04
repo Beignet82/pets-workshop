@@ -40,6 +40,23 @@ DOSSIER_AGENTS = os.path.join(RACINE, "agents")
 TABLEAU = os.path.join(RACINE, "Tableau de bord.md")
 
 GRAVITES = ("bloquant", "mineur")
+
+# Ajouté à la fin du prompt de CHAQUE agent : c'est ce qui rend l'erreur
+# trouvable. Modifie-le ici une fois, les six agents le reçoivent.
+PROTOCOLE = """# Cheminement — obligatoire, écrit AVANT le livrable
+Tu ne rends jamais un résultat seul. Tu écris d'abord comment tu y es arrivé :
+
+1. REÇU — la matière exacte que tu as reçue, telle quelle
+2. COMPRIS — la tâche telle que tu l'as lue, avec tes mots
+3. ÉTAPES — numérotées, une ligne chacune, dans l'ordre où tu les as faites
+4. DÉCISIONS — chaque choix, et pourquoi celui-là plutôt qu'un autre
+5. DOUTES — ce dont tu n'es pas sûr, et ce que tu as fait par défaut
+6. RENDU — la liste de ce que tu remets
+
+Tu n'abrèges jamais cette partie, même quand la tâche te paraît évidente.
+Une étape sautée, tu l'écris au lieu de la passer sous silence.
+Un doute passé sous silence, c'est une erreur que personne ne retrouvera."""
+
 STATUTS = [
     # (part de l'objectif atteinte, libellé, jauge)
     (1.00, "autonome", "🟩"),
@@ -173,8 +190,10 @@ def rendu_autonomie(m):
 
 
 def rendu_prompt(m):
-    """Le prompt de base, plus les règles graves apprises depuis."""
+    """Prompt de base + protocole de cheminement + règles graves apprises."""
     lignes = list(m["prompt_base"])
+    lignes.append("")
+    lignes.extend(PROTOCOLE.split("\n"))
     graves = [l for l in m["lecons"] if l["gravite"] == "bloquant" and l["regle"]]
     if graves:
         lignes.append("")
