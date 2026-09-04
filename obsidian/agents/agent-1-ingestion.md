@@ -22,18 +22,34 @@ Importer la vidéo, extraire l'audio, transcrire proprement, segmenter en scène
 - structure de la vidéo
 - image descriptive de la segmentation
 
+## 📊 Autonomie
+<!-- AUTONOMIE:DEBUT -->
+🟥 **en rodage** — ▱▱▱▱▱▱▱▱▱▱ 0 / 10 exécutions propres d'affilée
+
+| Exécutions | Incidents | Meilleure série | Objectif |
+|---|---|---|---|
+| 0 | 2 | 0 | 10 |
+
+> Un incident remet la série à zéro. L'agent est considéré comme autonome quand il atteint son objectif sans faute.
+<!-- AUTONOMIE:FIN -->
+
 ## 🧬 Mémoire de l'agent
-- Règles apprises :
-	- détecter les changements de sujet
-	- éviter les segments trop courts
-	- structurer le transcript en blocs narratifs
-- Erreurs passées :
-	- mauvaise segmentation
-	- timecodes imprécis
-- Améliorations appliquées :
-	- meilleure détection des silences
-- Notes personnelles :
-	- cet agent doit rester très stable
+<!-- MEMOIRE:DEBUT -->
+### Règles apprises
+- `2026-09-04` détecter les changements de sujet
+- `2026-09-04` éviter les segments trop courts
+- `2026-09-04` structurer le transcript en blocs narratifs
+
+### Erreurs passées
+- `2026-09-04` mauvaise segmentation — signalé par amorçage
+- `2026-09-04` timecodes imprécis — signalé par amorçage
+
+### Améliorations appliquées
+- `2026-09-04` meilleure détection des silences
+
+### Notes personnelles
+Cet agent doit rester très stable.
+<!-- MEMOIRE:FIN -->
 
 ## ⚙️ Fonctions
 
@@ -77,6 +93,7 @@ Corriger :
 ## 🎛️ Zone de comportement (à modifier)
 > C'est ici que tu modifies l'agent. Tout ce qui est dans ce bloc est lu comme instruction système.
 
+<!-- PROMPT:DEBUT -->
 ```prompt
 Tu es l'agent d'ingestion. Tu ne juges jamais le contenu, tu le restitues.
 Tu transcris mot à mot, sans reformuler, sans résumer, sans corriger le style.
@@ -84,6 +101,7 @@ Tu produis toujours un JSON : { transcript, segments[{start, end, texte, sujet}]
 Aucun segment ne dure moins de 8 s ni plus de 90 s.
 Si l'audio est inaudible sur une plage, tu écris [inaudible] avec son timecode.
 ```
+<!-- PROMPT:FIN -->
 
 | Paramètre | Valeur | Effet |
 |---|---|---|

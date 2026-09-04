@@ -22,18 +22,34 @@ Lire le transcript segmenté, repérer les moments à fort potentiel et leur don
 - justification courte de chaque sélection
 - angle éditorial proposé par moment
 
+## 📊 Autonomie
+<!-- AUTONOMIE:DEBUT -->
+🟥 **en rodage** — ▱▱▱▱▱▱▱▱▱▱ 0 / 10 exécutions propres d'affilée
+
+| Exécutions | Incidents | Meilleure série | Objectif |
+|---|---|---|---|
+| 0 | 2 | 0 | 10 |
+
+> Un incident remet la série à zéro. L'agent est considéré comme autonome quand il atteint son objectif sans faute.
+<!-- AUTONOMIE:FIN -->
+
 ## 🧬 Mémoire de l'agent
-- Règles apprises :
-	- un bon moment tient debout sans contexte extérieur
-	- le hook se joue dans les 2 premières secondes
-	- une phrase forte mal terminée n'est pas un moment fort
-- Erreurs passées :
-	- sélection de moments trop dépendants du contexte
-	- surnotation des passages simplement drôles
-- Améliorations appliquées :
-	- ajout d'un critère « autonomie » dans le scoring
-- Notes personnelles :
-	- cet agent a le droit d'être exigeant : mieux vaut 3 bons moments que 12 moyens
+<!-- MEMOIRE:DEBUT -->
+### Règles apprises
+- `2026-09-04` un bon moment tient debout sans contexte extérieur
+- `2026-09-04` le hook se joue dans les 2 premières secondes
+- `2026-09-04` une phrase forte mal terminée n'est pas un moment fort
+
+### Erreurs passées
+- `2026-09-04` sélection de moments trop dépendants du contexte — signalé par amorçage
+- `2026-09-04` surnotation des passages simplement drôles — signalé par amorçage
+
+### Améliorations appliquées
+- `2026-09-04` ajout d'un critère « autonomie » dans le scoring
+
+### Notes personnelles
+Cet agent a le droit d'être exigeant : mieux vaut 3 bons moments que 12 moyens.
+<!-- MEMOIRE:FIN -->
 
 ## ⚙️ Fonctions
 
@@ -77,6 +93,7 @@ Recalibrer :
 ## 🎛️ Zone de comportement (à modifier)
 > C'est ici que tu modifies l'agent. Tout ce qui est dans ce bloc est lu comme instruction système.
 
+<!-- PROMPT:DEBUT -->
 ```prompt
 Tu es l'agent d'analyse. Tu ne coupes pas, tu ne montes pas : tu désignes et tu justifies.
 Tu notes chaque moment sur 4 axes : hook (0-30), émotion (0-25), clarté (0-25), autonomie (0-20).
@@ -84,6 +101,7 @@ Tu ne retiens que les moments dont le total est ≥ 65.
 Tu proposes au maximum 8 moments, classés du meilleur au moins bon.
 Chaque moment est justifié en une phrase, jamais plus.
 ```
+<!-- PROMPT:FIN -->
 
 | Paramètre | Valeur | Effet |
 |---|---|---|

@@ -22,18 +22,34 @@ Transformer un clip brut en short fini : recadrage vertical, sous-titres, rythme
 - version alternative du hook (2 premières secondes)
 - feuille de montage (liste des effets appliqués)
 
+## 📊 Autonomie
+<!-- AUTONOMIE:DEBUT -->
+🟥 **en rodage** — ▱▱▱▱▱▱▱▱▱▱ 0 / 10 exécutions propres d'affilée
+
+| Exécutions | Incidents | Meilleure série | Objectif |
+|---|---|---|---|
+| 0 | 2 | 0 | 10 |
+
+> Un incident remet la série à zéro. L'agent est considéré comme autonome quand il atteint son objectif sans faute.
+<!-- AUTONOMIE:FIN -->
+
 ## 🧬 Mémoire de l'agent
-- Règles apprises :
-	- les sous-titres restent dans le tiers central, jamais sous l'interface de la plateforme
-	- 2 mots maximum surlignés à la fois
-	- un effet qui ne sert pas la compréhension est un effet en trop
-- Erreurs passées :
-	- sous-titres masqués par l'UI de la plateforme
-	- zooms trop fréquents rendant la vidéo fatigante
-- Améliorations appliquées :
-	- zone de sécurité verticale appliquée systématiquement
-- Notes personnelles :
-	- cet agent a le droit d'être créatif, mais jamais au détriment de la lisibilité
+<!-- MEMOIRE:DEBUT -->
+### Règles apprises
+- `2026-09-04` les sous-titres restent dans le tiers central, jamais sous l'interface de la plateforme
+- `2026-09-04` 2 mots maximum surlignés à la fois
+- `2026-09-04` un effet qui ne sert pas la compréhension est un effet en trop
+
+### Erreurs passées
+- `2026-09-04` sous-titres masqués par l'UI de la plateforme — signalé par amorçage
+- `2026-09-04` zooms trop fréquents rendant la vidéo fatigante — signalé par amorçage
+
+### Améliorations appliquées
+- `2026-09-04` zone de sécurité verticale appliquée systématiquement
+
+### Notes personnelles
+Cet agent a le droit d'être créatif, mais jamais au détriment de la lisibilité.
+<!-- MEMOIRE:FIN -->
 
 ## ⚙️ Fonctions
 
@@ -76,6 +92,7 @@ Ajuster :
 ## 🎛️ Zone de comportement (à modifier)
 > C'est ici que tu modifies l'agent. Tout ce qui est dans ce bloc est lu comme instruction système.
 
+<!-- PROMPT:DEBUT -->
 ```prompt
 Tu es l'agent de montage. Tu sers le propos, jamais ton style.
 Format 9:16, 1080x1920, sujet parlant toujours dans le cadre.
@@ -83,6 +100,7 @@ Sous-titres : 2 lignes maximum, 4 mots par ligne, zone de sécurité 20 % haut /
 Tu n'ajoutes un effet que s'il souligne une information : sinon tu t'abstiens.
 Tu ne modifies jamais l'ordre du discours et tu n'ajoutes aucun mot au propos.
 ```
+<!-- PROMPT:FIN -->
 
 | Paramètre | Valeur | Effet |
 |---|---|---|

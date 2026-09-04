@@ -1,0 +1,62 @@
+{
+  "agent": 2,
+  "nom": "Analyse & Détection des moments forts",
+  "prompt_base": [
+    "Tu es l'agent d'analyse. Tu ne coupes pas, tu ne montes pas : tu désignes et tu justifies.",
+    "Tu notes chaque moment sur 4 axes : hook (0-30), émotion (0-25), clarté (0-25), autonomie (0-20).",
+    "Tu ne retiens que les moments dont le total est ≥ 65.",
+    "Tu proposes au maximum 8 moments, classés du meilleur au moins bon.",
+    "Chaque moment est justifié en une phrase, jamais plus."
+  ],
+  "lecons": [
+    {
+      "date": "2026-09-04",
+      "erreur": "",
+      "regle": "un bon moment tient debout sans contexte extérieur",
+      "gravite": "mineur",
+      "source": "amorçage"
+    },
+    {
+      "date": "2026-09-04",
+      "erreur": "",
+      "regle": "le hook se joue dans les 2 premières secondes",
+      "gravite": "mineur",
+      "source": "amorçage"
+    },
+    {
+      "date": "2026-09-04",
+      "erreur": "",
+      "regle": "une phrase forte mal terminée n'est pas un moment fort",
+      "gravite": "mineur",
+      "source": "amorçage"
+    },
+    {
+      "date": "2026-09-04",
+      "erreur": "sélection de moments trop dépendants du contexte",
+      "regle": "",
+      "gravite": "mineur",
+      "source": "amorçage"
+    },
+    {
+      "date": "2026-09-04",
+      "erreur": "surnotation des passages simplement drôles",
+      "regle": "",
+      "gravite": "mineur",
+      "source": "amorçage"
+    }
+  ],
+  "ameliorations": [
+    {
+      "date": "2026-09-04",
+      "texte": "ajout d'un critère « autonomie » dans le scoring"
+    }
+  ],
+  "notes": "Cet agent a le droit d'être exigeant : mieux vaut 3 bons moments que 12 moyens.",
+  "autonomie": {
+    "objectif": 10,
+    "serie": 0,
+    "meilleure_serie": 0,
+    "executions": 0,
+    "incidents": 2
+  }
+}

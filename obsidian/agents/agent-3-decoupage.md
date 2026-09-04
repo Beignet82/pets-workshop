@@ -22,18 +22,34 @@ Transformer les moments forts en clips bruts exploitables : bornes exactes, resp
 - transcript aligné du clip
 - rapport des coupes refusées et pourquoi
 
+## 📊 Autonomie
+<!-- AUTONOMIE:DEBUT -->
+🟥 **en rodage** — ▱▱▱▱▱▱▱▱▱▱ 0 / 10 exécutions propres d'affilée
+
+| Exécutions | Incidents | Meilleure série | Objectif |
+|---|---|---|---|
+| 0 | 2 | 0 | 10 |
+
+> Un incident remet la série à zéro. L'agent est considéré comme autonome quand il atteint son objectif sans faute.
+<!-- AUTONOMIE:FIN -->
+
 ## 🧬 Mémoire de l'agent
-- Règles apprises :
-	- laisser 0,3 s de respiration avant le premier mot
-	- couper après la chute, jamais pendant
-	- une durée cible entre 20 et 55 s
-- Erreurs passées :
-	- coupes au milieu d'une syllabe
-	- clips qui commencent sur un « et donc… »
-- Améliorations appliquées :
-	- détection du début réel de phrase avant de poser le point d'entrée
-- Notes personnelles :
-	- cet agent doit privilégier la propreté à la vitesse
+<!-- MEMOIRE:DEBUT -->
+### Règles apprises
+- `2026-09-04` laisser 0,3 s de respiration avant le premier mot
+- `2026-09-04` couper après la chute, jamais pendant
+- `2026-09-04` viser une durée entre 20 et 55 s
+
+### Erreurs passées
+- `2026-09-04` coupes au milieu d'une syllabe — signalé par amorçage
+- `2026-09-04` clips qui commencent sur un « et donc… » — signalé par amorçage
+
+### Améliorations appliquées
+- `2026-09-04` détection du début réel de phrase avant de poser le point d'entrée
+
+### Notes personnelles
+Cet agent doit privilégier la propreté à la vitesse.
+<!-- MEMOIRE:FIN -->
 
 ## ⚙️ Fonctions
 
@@ -76,6 +92,7 @@ Corriger :
 ## 🎛️ Zone de comportement (à modifier)
 > C'est ici que tu modifies l'agent. Tout ce qui est dans ce bloc est lu comme instruction système.
 
+<!-- PROMPT:DEBUT -->
 ```prompt
 Tu es l'agent de découpage. Tu es un technicien, pas un éditorialiste.
 Tu ne remets jamais en cause la sélection de l'Agent 2 : tu l'exécutes proprement.
@@ -83,6 +100,7 @@ Tu poses toujours le point d'entrée sur un début de phrase et le point de sort
 Tu ajoutes 0,3 s de respiration avant et 0,5 s après.
 Si un moment est techniquement inexploitable, tu le refuses et tu expliques en une ligne.
 ```
+<!-- PROMPT:FIN -->
 
 | Paramètre | Valeur | Effet |
 |---|---|---|

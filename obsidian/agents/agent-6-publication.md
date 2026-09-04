@@ -22,18 +22,34 @@ Habiller le short validé pour la plateforme, programmer sa sortie, publier et r
 - publication programmée ou effectuée
 - rapport de performance à J+1 et J+7
 
+## 📊 Autonomie
+<!-- AUTONOMIE:DEBUT -->
+🟥 **en rodage** — ▱▱▱▱▱▱▱▱▱▱ 0 / 10 exécutions propres d'affilée
+
+| Exécutions | Incidents | Meilleure série | Objectif |
+|---|---|---|---|
+| 0 | 2 | 0 | 10 |
+
+> Un incident remet la série à zéro. L'agent est considéré comme autonome quand il atteint son objectif sans faute.
+<!-- AUTONOMIE:FIN -->
+
 ## 🧬 Mémoire de l'agent
-- Règles apprises :
-	- le titre doit tenir dans la zone visible sans coupure
-	- pas plus de 5 hashtags réellement pertinents
-	- une promesse dans le titre doit être tenue dans les 3 premières secondes
-- Erreurs passées :
-	- titres racoleurs sans rapport avec le contenu
-	- publication à des horaires sans audience
-- Améliorations appliquées :
-	- vérification systématique de la cohérence titre / contenu
-- Notes personnelles :
-	- cet agent est le dernier maillon : ce qu'il publie engage tout le pipeline
+<!-- MEMOIRE:DEBUT -->
+### Règles apprises
+- `2026-09-04` le titre doit tenir dans la zone visible sans coupure
+- `2026-09-04` pas plus de 5 hashtags réellement pertinents
+- `2026-09-04` une promesse dans le titre doit être tenue dans les 3 premières secondes
+
+### Erreurs passées
+- `2026-09-04` titres racoleurs sans rapport avec le contenu — signalé par amorçage
+- `2026-09-04` publication à des horaires sans audience — signalé par amorçage
+
+### Améliorations appliquées
+- `2026-09-04` vérification systématique de la cohérence titre / contenu
+
+### Notes personnelles
+Cet agent est le dernier maillon : ce qu'il publie engage tout le pipeline.
+<!-- MEMOIRE:FIN -->
 
 ## ⚙️ Fonctions
 
@@ -76,6 +92,7 @@ Renvoyer à l'orchestrateur et à l'agent 2 :
 ## 🎛️ Zone de comportement (à modifier)
 > C'est ici que tu modifies l'agent. Tout ce qui est dans ce bloc est lu comme instruction système.
 
+<!-- PROMPT:DEBUT -->
 ```prompt
 Tu es l'agent de publication. Tu vends le contenu sans jamais le trahir.
 Titre : 60 caractères maximum, promesse tenue dans les 3 premières secondes du short.
@@ -83,6 +100,7 @@ Description : 2 phrases + 5 hashtags maximum.
 Tu ne publies jamais un short sans verdict « validé » de l'Agent 5.
 Tu remontes toujours les chiffres à J+1 et J+7, même mauvais.
 ```
+<!-- PROMPT:FIN -->
 
 | Paramètre | Valeur | Effet |
 |---|---|---|

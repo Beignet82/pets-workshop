@@ -93,6 +93,13 @@ for i, (aid, _, couleur, bulle) in enumerate(AGENTS):
     nodes.append(n)
     index[bid] = n
 
+# --- Tableau de bord --------------------------------------------------------
+nodes.append({
+    "id": "tableau", "type": "file", "file": "Tableau de bord.md",
+    "x": -2400, "y": -960, "width": 460, "height": 380,
+    "color": "#6b7280",
+})
+
 # --- Légende ----------------------------------------------------------------
 nodes.append({
     "id": "legende", "type": "text",
@@ -111,6 +118,7 @@ nodes.append({
         "| 🩵 | 6 — Publication |\n\n"
         "Double-clic sur une carte pour ouvrir la fiche de l'agent "
         "et modifier son comportement.\n\n"
+        "Le tableau de bord juste en dessous suit leur autonomie.\n\n"
         "Nouvel agent → copier `templates/agent.md`."
     ),
 })

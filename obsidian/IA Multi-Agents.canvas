@@ -131,13 +131,23 @@
       "color": "#0fb5b5"
     },
     {
+      "id": "tableau",
+      "type": "file",
+      "file": "Tableau de bord.md",
+      "x": -2400,
+      "y": -960,
+      "width": 460,
+      "height": 380,
+      "color": "#6b7280"
+    },
+    {
       "id": "legende",
       "type": "text",
       "x": -2400,
       "y": -1500,
       "width": 460,
       "height": 460,
-      "text": "## 🧪 Laboratoire IA multi-agents\n\n**Cercle** : 6 agents immobiles, un rôle chacun.\n**Centre** : le pipeline / orchestrateur.\n**Bulles** : ce qui transite d'un agent au suivant.\n\n| | Agent |\n|---|---|\n| 🔵 | 1 — Ingestion |\n| 🟢 | 2 — Analyse |\n| 🟡 | 3 — Découpage |\n| 🔴 | 4 — Montage |\n| 🟣 | 5 — Vérification |\n| 🩵 | 6 — Publication |\n\nDouble-clic sur une carte pour ouvrir la fiche de l'agent et modifier son comportement.\n\nNouvel agent → copier `templates/agent.md`."
+      "text": "## 🧪 Laboratoire IA multi-agents\n\n**Cercle** : 6 agents immobiles, un rôle chacun.\n**Centre** : le pipeline / orchestrateur.\n**Bulles** : ce qui transite d'un agent au suivant.\n\n| | Agent |\n|---|---|\n| 🔵 | 1 — Ingestion |\n| 🟢 | 2 — Analyse |\n| 🟡 | 3 — Découpage |\n| 🔴 | 4 — Montage |\n| 🟣 | 5 — Vérification |\n| 🩵 | 6 — Publication |\n\nDouble-clic sur une carte pour ouvrir la fiche de l'agent et modifier son comportement.\n\nLe tableau de bord juste en dessous suit leur autonomie.\n\nNouvel agent → copier `templates/agent.md`."
     }
   ],
   "edges": [

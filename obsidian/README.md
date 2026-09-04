@@ -24,9 +24,13 @@ obsidian/
 │   ├── agent-4-montage.md        🔴 short monté
 │   ├── agent-5-verification.md   🟣 short validé + métadonnées
 │   └── agent-6-publication.md    🩵 publication + performances
+├── Tableau de bord.md            ← l'autonomie des 6 agents, régénéré
+├── memoire/agent-1..6.json       ← la mémoire brute (écrite par le script)
 ├── templates/agent.md            ← le moule pour créer un nouvel agent
 ├── avatars/                      ← les images statiques des personnages
-└── outils/generer-canvas.py      ← régénère la toile (cercle, positions, liens)
+└── outils/
+    ├── generer-canvas.py         ← régénère la toile (cercle, positions, liens)
+    └── apprendre.py              ← la boucle d'apprentissage des agents
 ```
 
 ## La disposition
@@ -66,11 +70,79 @@ documentation : c'est ce bloc-là qui change ce que l'agent fait.
 La section **🧬 Mémoire de l'agent** est faite pour être enrichie à la main après
 chaque exécution : règle apprise, erreur constatée, correction appliquée.
 
+## La boucle d'apprentissage
+
+Un agent ne s'améliore pas tout seul : il s'améliore parce qu'on lui écrit ce qu'il
+a raté. C'est exactement ce que fait `outils/apprendre.py`, et c'est le cœur du
+laboratoire.
+
+### Les deux seules choses à faire
+
+```bash
+# l'agent a bien travaillé
+python3 outils/apprendre.py succes --agent 3
+
+# l'agent s'est trompé
+python3 outils/apprendre.py lecon --agent 3 \
+    --erreur "clip coupé au milieu du mot « exactement » à 00:04:12" \
+    --regle "vérifier la frontière de mot sur les 5 dernières frames" \
+    --gravite bloquant --source agent-5
+```
+
+### Ce qui se passe alors
+
+1. La leçon est écrite dans `memoire/agent-3.json`.
+2. La fiche `agents/agent-3-decoupage.md` est réécrite : la règle apparaît dans
+   **Règles apprises**, l'erreur dans **Erreurs passées**.
+3. Si la gravité est `bloquant`, **la règle est ajoutée au prompt de l'agent** —
+   il la portera dans toutes ses exécutions suivantes. C'est ça, corriger.
+4. La série d'exécutions propres repart de zéro. Le `Tableau de bord.md` est
+   régénéré.
+
+### Mesurer l'autonomie
+
+Un agent est **autonome** quand il enchaîne son objectif d'exécutions sans le
+moindre incident — 10 par défaut. C'est une définition volontairement dure :
+la série retombe à zéro au premier faux pas.
+
+| Jauge | Statut | Ce que ça veut dire |
+|---|---|---|
+| 🟥 | en rodage | il faut le surveiller à chaque passage |
+| 🟧 | en progrès | il tient, mais pas encore longtemps |
+| 🟨 | presque | on peut commencer à le laisser seul |
+| 🟩 | autonome | objectif atteint, il tourne seul |
+
+```bash
+python3 outils/apprendre.py etat      # l'état des 6 agents en une vue
+python3 outils/apprendre.py fiches    # tout régénérer après une modif à la main
+```
+
+### Les zones écrites par le script
+
+Dans chaque fiche, trois zones sont encadrées par des marqueurs :
+
+```
+<!-- MEMOIRE:DEBUT -->  …  <!-- MEMOIRE:FIN -->
+<!-- PROMPT:DEBUT -->   …  <!-- PROMPT:FIN -->
+<!-- AUTONOMIE:DEBUT -->…  <!-- AUTONOMIE:FIN -->
+```
+
+Le script ne touche **qu'à l'intérieur** de ces zones. Tout le reste de la fiche
+— rôle, compétences, livrables, fonctions, contraintes dures — reste à toi, tu
+peux l'écrire à la main dans Obsidian sans rien risquer.
+
+Le prompt de base d'un agent (celui d'avant tout apprentissage) vit dans
+`memoire/agent-N.json`, clé `prompt_base` : c'est là qu'on le change, pas dans la
+fiche, sinon la prochaine régénération l'écrase.
+
 ## Ajouter un 7ᵉ agent
 1. Copie `templates/agent.md` dans `agents/agent-7-xxx.md` et remplis les `{{...}}`.
-2. Ajoute-le dans la liste `AGENTS` de `outils/generer-canvas.py` (id, fichier,
+2. Crée sa mémoire `memoire/agent-7.json` sur le modèle des autres
+   (`agent`, `nom`, `prompt_base`, `lecons: []`, `ameliorations: []`, `notes`,
+   `autonomie`), puis lance `python3 outils/apprendre.py fiches`.
+3. Ajoute-le dans la liste `AGENTS` de `outils/generer-canvas.py` (id, fichier,
    couleur hex, libellé de la bulle sortante) et dans le dictionnaire `SUIVANT`.
-3. Relance depuis la racine du coffre :
+4. Relance depuis la racine du coffre :
    ```bash
    python3 outils/generer-canvas.py
    ```

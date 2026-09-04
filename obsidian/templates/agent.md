@@ -21,11 +21,13 @@ tags: [agent, pipeline-shorts]
 - {{livrable2}}
 - {{livrable3}}
 
+## 📊 Autonomie
+<!-- AUTONOMIE:DEBUT -->
+<!-- AUTONOMIE:FIN -->
+
 ## 🧬 Mémoire de l'agent
-- Règles apprises :
-- Erreurs passées :
-- Améliorations appliquées :
-- Notes personnelles :
+<!-- MEMOIRE:DEBUT -->
+<!-- MEMOIRE:FIN -->
 
 ## ⚙️ Fonctions
 
@@ -52,9 +54,11 @@ tags: [agent, pipeline-shorts]
 ## 🎛️ Zone de comportement (à modifier)
 > C'est ici que tu modifies l'agent. Tout ce qui est dans ce bloc est lu comme instruction système.
 
+<!-- PROMPT:DEBUT -->
 ```prompt
 {{system_prompt}}
 ```
+<!-- PROMPT:FIN -->
 
 | Paramètre | Valeur | Effet |
 |---|---|---|
@@ -77,3 +81,9 @@ Envoie à : {{output_to}}
 
 ## 🖼️ Image descriptive
 *(Décris ici l'image que tu veux associer à cet agent)*
+
+---
+
+> Les zones `<!-- … :DEBUT -->` … `<!-- … :FIN -->` sont écrites par
+> `outils/apprendre.py`. N'écris pas dedans à la main : le script les écrase.
+> Tout le reste de la fiche t'appartient.
