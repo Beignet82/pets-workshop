@@ -1,0 +1,440 @@
+<title>Construire le labo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap">
+
+<style>
+:root{
+  --ground:#EFF3F5;
+  --surface:#FFFFFF;
+  --inset:#12181C;
+  --line:#D5DDE2;
+  --line-soft:#E4EAEE;
+  --ink:#101619;
+  --ink-2:#39454D;
+  --muted:#65727C;
+  --accent:#1B4FA0;
+  --accent-doux:#E7EEF9;
+  --fait:#12855A;
+  --fait-doux:#E3F3EC;
+  --shadow:0 1px 2px rgba(16,22,25,.05), 0 10px 26px -16px rgba(16,22,25,.28);
+  --f-titre:"Archivo","Arial Narrow",Arial,sans-serif;
+  --f-texte:"Source Sans 3","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0D1215; --surface:#161D22; --inset:#0A0E11;
+    --line:#28333A; --line-soft:#20292F;
+    --ink:#E7EDF0; --ink-2:#BAC5CC; --muted:#8695A0;
+    --accent:#77A3EA; --accent-doux:#182533;
+    --fait:#35BE84; --fait-doux:#152A22;
+    --shadow:0 1px 2px rgba(0,0,0,.5), 0 12px 30px -18px rgba(0,0,0,.9);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0D1215; --surface:#161D22; --inset:#0A0E11;
+  --line:#28333A; --line-soft:#20292F;
+  --ink:#E7EDF0; --ink-2:#BAC5CC; --muted:#8695A0;
+  --accent:#77A3EA; --accent-doux:#182533;
+  --fait:#35BE84; --fait-doux:#152A22;
+  --shadow:0 1px 2px rgba(0,0,0,.5), 0 12px 30px -18px rgba(0,0,0,.9);
+}
+
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--f-texte);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.page{max-width:800px;margin:0 auto;padding:0 20px 80px}
+
+/* ---------- bandeau de progression ---------- */
+.suivi{
+  position:sticky;top:0;z-index:5;margin:0 -20px 34px;padding:11px 20px;
+  background:color-mix(in srgb, var(--ground) 88%, transparent);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:14px;
+}
+.suivi-n{font-family:var(--f-mono);font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.suivi-n b{color:var(--fait)}
+.rail{flex:1;height:5px;border-radius:99px;background:var(--line);overflow:hidden}
+.rail i{display:block;height:100%;width:0;background:var(--fait);border-radius:99px;transition:width .35s ease}
+.raz{
+  font:inherit;font-size:12.5px;padding:4px 10px;border-radius:7px;cursor:pointer;
+  background:transparent;border:1px solid var(--line);color:var(--muted);white-space:nowrap;
+}
+.raz:hover{color:var(--ink);border-color:var(--muted)}
+
+/* ---------- en-tête ---------- */
+header{padding:38px 0 30px;border-bottom:1px solid var(--line)}
+.sur{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 12px}
+h1{margin:0;font-family:var(--f-titre);font-weight:700;font-size:clamp(32px,5.5vw,50px);line-height:1.05;letter-spacing:-.02em;text-wrap:balance}
+.chapo{margin:14px 0 0;max-width:60ch;font-size:17.5px;color:var(--ink-2)}
+.avant{
+  margin:22px 0 0;padding:15px 17px;border-radius:11px;
+  background:var(--accent-doux);border:1px solid color-mix(in srgb, var(--accent) 26%, transparent);
+  font-size:14.5px;line-height:1.55;
+}
+.avant b{font-weight:600}
+
+/* ---------- phases et étapes ---------- */
+.phase{display:flex;align-items:center;gap:14px;margin:44px 0 20px}
+.phase span{
+  font-family:var(--f-mono);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--muted);white-space:nowrap;
+}
+.phase::after{content:"";flex:1;height:1px;background:var(--line)}
+
+.etape{
+  display:grid;grid-template-columns:auto 1fr;gap:0 16px;
+  background:var(--surface);border:1px solid var(--line);border-radius:13px;
+  padding:18px 20px;margin-bottom:12px;box-shadow:var(--shadow);
+  transition:border-color .2s;
+}
+.etape.faite{border-color:color-mix(in srgb, var(--fait) 40%, transparent)}
+.coche{
+  grid-row:1 / span 3;align-self:start;
+  width:30px;height:30px;border-radius:9px;cursor:pointer;flex:none;
+  display:grid;place-items:center;
+  font-family:var(--f-mono);font-size:13px;font-weight:500;
+  background:var(--ground);border:1px solid var(--line);color:var(--muted);
+}
+.coche:hover{border-color:var(--accent);color:var(--accent)}
+.etape.faite .coche{background:var(--fait-doux);border-color:var(--fait);color:var(--fait)}
+.etape h2{
+  margin:3px 0 0;font-family:var(--f-titre);font-weight:600;font-size:19px;
+  letter-spacing:-.01em;line-height:1.25;text-wrap:balance;
+}
+.etape.faite h2{color:var(--muted)}
+.corps{margin:8px 0 0;font-size:15.5px;color:var(--ink-2)}
+.corps p{margin:0 0 9px}
+.corps p:last-child{margin-bottom:0}
+.corps ul{margin:0 0 9px;padding-left:19px}
+.corps li{margin-bottom:4px}
+kbd{
+  font-family:var(--f-mono);font-size:12.5px;padding:2px 6px;border-radius:5px;
+  background:var(--ground);border:1px solid var(--line);color:var(--ink);white-space:nowrap;
+}
+.ui{
+  font-family:var(--f-mono);font-size:13.5px;padding:1px 6px;border-radius:5px;
+  background:var(--accent-doux);color:var(--accent);white-space:nowrap;
+}
+.en{font-size:13px;color:var(--muted);font-style:italic}
+
+.pourquoi{
+  margin:11px 0 0;padding:11px 14px;border-left:2px solid var(--line);
+  font-size:14px;color:var(--muted);line-height:1.5;
+}
+.pourquoi b{color:var(--ink-2);font-weight:600}
+
+/* ---------- bloc à coller ---------- */
+.coller{margin:13px 0 0}
+.coller-tete{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.coller-tete span{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.btn-copie{
+  font:inherit;font-size:13.5px;font-weight:600;padding:7px 14px;border-radius:8px;cursor:pointer;
+  background:var(--accent);border:1px solid var(--accent);color:#fff;
+}
+.btn-copie:hover{filter:brightness(1.08)}
+.btn-copie.ok{background:var(--fait);border-color:var(--fait)}
+pre.apercu{
+  margin:0;padding:13px 15px;border-radius:10px;max-height:190px;overflow:auto;
+  background:var(--inset);border:1px solid var(--line);
+  color:#D3DCE3;font-family:var(--f-mono);font-size:12.5px;line-height:1.6;
+  white-space:pre-wrap;word-break:break-word;
+}
+textarea.secours{
+  width:100%;height:150px;margin-top:10px;padding:11px 13px;border-radius:9px;
+  background:var(--ground);border:1px solid var(--line);color:var(--ink);
+  font-family:var(--f-mono);font-size:12px;resize:vertical;
+}
+
+/* ---------- fin ---------- */
+.fin{
+  margin-top:44px;padding:24px 26px;border-radius:14px;
+  background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);
+}
+.fin h2{margin:0 0 10px;font-family:var(--f-titre);font-weight:700;font-size:22px;letter-spacing:-.015em}
+.fin p{margin:0 0 10px;color:var(--ink-2)}
+.fin p:last-child{margin-bottom:0}
+a{color:var(--accent);text-underline-offset:3px}
+
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (max-width:560px){
+  .etape{padding:16px;gap:0 13px}
+  .suivi .raz{display:none}
+}
+</style>
+
+<div class="page">
+
+  <div class="suivi">
+    <span class="suivi-n"><b id="n-faites">0</b> / <span id="n-total">14</span> étapes</span>
+    <div class="rail"><i id="rail"></i></div>
+    <button type="button" class="raz" id="raz">Tout décocher</button>
+  </div>
+
+  <header>
+    <p class="sur">Obsidian · à partir de zéro</p>
+    <h1>Construire le labo</h1>
+    <p class="chapo">Quatorze étapes, dans l'ordre. Tu fais chaque geste toi-même : le coffre, les dossiers, les notes, la toile. À la fin tu sauras où chaque chose se trouve — parce que c'est toi qui l'auras mise là.</p>
+    <div class="avant">
+      <b>Avant de commencer :</b> ouvre Obsidian dans une fenêtre, et garde cette page dans une autre. Tu passeras de l'une à l'autre à chaque étape. Coche au fur et à mesure — ta progression est gardée même si tu fermes la page.
+    </div>
+  </header>
+
+  <div id="etapes"></div>
+
+  <section class="fin">
+    <h2>Et après</h2>
+    <p>Ton labo existe. Tu peux maintenant modifier n'importe quel agent directement dans Obsidian : ouvre sa note, va dans <b>🎛️ Zone de comportement</b>, change le texte du bloc <code>prompt</code>. C'est la seule chose qui change ce qu'il fait.</p>
+    <p>Quand un agent se trompe, écris son cheminement dans <code>journal/</code>, cherche l'erreur dans ses <b>décisions</b> ou ses <b>doutes</b>, puis dis-le-moi : j'écrirai la leçon dans sa mémoire.</p>
+  </section>
+</div>
+
+<script>
+const TEXTES = {"AGENT1": "# Agent 1 — Collecte des liens Kick\n\n## 🧠 Rôle\nRassembler les liens de streams Kick (chaîne **Neon** et les autres chaînes suivies), vérifier qu'ils sont valides et accessibles, en extraire les métadonnées, et constituer la file d'attente que l'Agent 2 traitera.\n\n## 🎯 Compétences\n- collecte et vérification de liens de streams et de VOD\n- lecture des métadonnées d'un stream (chaîne, titre, date, durée)\n- dédoublonnage et tenue d'une file d'attente propre\n\n## 📦 Livrables\n- liste de liens vérifiés, un par ligne\n- métadonnées par lien : chaîne, titre, date, durée, état\n- file d'attente datée, prête pour l'Agent 2\n- rapport des liens morts, privés ou expirés\n\n## 📊 Autonomie\n🟥 **en rodage** — ▱▱▱▱▱▱▱▱▱▱ 0 / 10 exécutions propres d'affilée\n\n| Exécutions | Incidents | Meilleure série | Objectif |\n|---|---|---|---|\n| 0 | 0 | 0 | 10 |\n\n> Un incident remet la série à zéro. L'agent est considéré comme autonome quand il atteint son objectif sans faute.\n\n## 🧬 Mémoire de l'agent\n### Règles apprises\n- *(aucune pour l'instant)*\n\n### Erreurs passées\n- *(aucune pour l'instant)*\n\n### Améliorations appliquées\n- `2026-09-04` Mission redéfinie : collecte et vérification de liens Kick à la place de l'ingestion vidéo.\n\n### Notes personnelles\nMission changée le 2026-09-04 : cet agent collecte des liens Kick, il ne transcrit plus. Chaîne suivie : Neon uniquement. Cadence : un lien à la fois.\n\n## ⚙️ Fonctions\n\n### Entraîner\n```\nPasser en revue une série de liens Kick déjà collectés.\nApprendre à reconnaître :\n- un lien de stream en direct vs une VOD vs un clip\n- un lien mort, privé ou expiré\n- deux liens qui pointent vers le même contenu\n```\n\n### Tester\n```\nPrendre un lot de 10 liens dont 3 volontairement cassés.\nVérifier :\n- les 3 liens cassés sont écartés et signalés\n- les métadonnées des 7 autres sont complètes\n- aucun doublon dans la file de sortie\n```\n\n### Exécuter\n```\nInput : une ou plusieurs chaînes Kick à suivre (Neon, etc.)\nOutput :\n- liens vérifiés\n- métadonnées par lien\n- file d'attente pour l'Agent 2\n```\n\n### Améliorer\n```\nUtiliser feedback de l'agent 5 et les refus de l'agent 2.\nCorriger :\n- liens transmis alors qu'ils étaient inaccessibles\n- métadonnées incomplètes ou fausses\n- doublons passés à travers\n```\n\n## 🎛️ Zone de comportement (à modifier)\n> C'est ici que tu modifies l'agent. Tout ce qui est dans ce bloc est lu comme instruction système.\n\n```prompt\nTu es l'agent de collecte. Tu ramasses des liens, tu ne juges pas leur contenu.\nTu ne suis qu'une seule chaîne Kick : **Neon**. Toute autre chaîne, tu l'ignores et tu le dis.\nTu travailles UN LIEN À LA FOIS : tu en prends un, tu le traites entièrement, tu le remets, puis tu t'arrêtes et tu attends le feu vert avant le suivant.\nTu n'ouvres jamais deux liens dans la même passe, même si on t'en donne dix.\nTu ouvres le lien avant de le transmettre : un lien mort, privé ou expiré est écarté et signalé, jamais transmis.\nPour le lien retenu tu rends : url, chaîne, titre, date, durée, type (direct / VOD / clip).\nUne métadonnée que tu ne peux pas lire s'écrit `inconnu` — tu ne la devines jamais.\nSi le lien fait doublon avec un lien déjà traité, tu le signales et tu n'en fais rien d'autre.\n\n# Cheminement — obligatoire, écrit AVANT le livrable\nTu ne rends jamais un résultat seul. Tu écris d'abord comment tu y es arrivé :\n\n1. REÇU — la matière exacte que tu as reçue, telle quelle\n2. COMPRIS — la tâche telle que tu l'as lue, avec tes mots\n3. ÉTAPES — numérotées, une ligne chacune, dans l'ordre où tu les as faites\n4. DÉCISIONS — chaque choix, et pourquoi celui-là plutôt qu'un autre\n5. DOUTES — ce dont tu n'es pas sûr, et ce que tu as fait par défaut\n6. RENDU — la liste de ce que tu remets\n\nTu n'abrèges jamais cette partie, même quand la tâche te paraît évidente.\nUne étape sautée, tu l'écris au lieu de la passer sous silence.\nUn doute passé sous silence, c'est une erreur que personne ne retrouvera.\n```\n\n| Paramètre | Valeur | Effet |\n|---|---|---|\n| Créativité | 0.0 | 0 = strict, 1 = libre |\n| Verbosité | courte | une liste, pas de commentaire |\n| Strictesse | maximale | aucun lien approximatif |\n| Modèle | texte + accès web | moteur utilisé |\n\n### Contraintes dures (ne jamais violer)\n- ne jamais transmettre un lien sans l'avoir vérifié\n- ne jamais inventer une métadonnée absente : écrire `inconnu`\n\n### Critères de réussite\n- 0 lien mort transmis à l'Agent 2\n- 0 doublon dans la file d'attente\n\n## 🔗 Communication\nReçoit de : pipeline / orchestrateur — les chaînes à suivre\nEnvoie à : [[agent-2-modification|Agent 2 — Modification]] — bulle : « Liens vérifiés + métadonnées »\n\n## 🖼️ Image descriptive\nUn personnage bleu immobile, une pile de liens lumineux en suspension devant lui, chacun marqué d'une petite coche verte ou d'une croix rouge.", "CHEMINEMENT": "# Cheminement — Agent {{n}} — {{date}}\n\n## 1. Reçu\n*(la matière exacte donnée à l'agent, telle quelle)*\n\n## 2. Compris\n*(la tâche telle que l'agent l'a lue, avec ses mots)*\n\n## 3. Étapes\n1.\n2.\n3.\n\n## 4. Décisions\n| Choix fait | Pourquoi celui-là | Autre option écartée |\n|---|---|---|\n|  |  |  |\n\n## 5. Doutes\n*(ce dont l'agent n'était pas sûr, et ce qu'il a fait par défaut)*\n\n## 6. Rendu\n- \n\n---\n\n## 🔍 Ma relecture\n> À remplir par toi, après avoir lu ce qui précède.\n\n- **L'erreur est à l'étape :**\n- **Ce qui aurait dû se passer :**\n- **Règle à retenir :**\n- **Gravité :** bloquant / mineur\n\n*Puis dis-le-moi, et j'écris la leçon dans la mémoire de l'agent.*"};
+
+TEXTES.ORCHESTRATEUR = [
+  "# Pipeline / Orchestrateur",
+  "",
+  "## 🧠 Rôle",
+  "Lancer le pipeline, faire circuler les livrables d'un agent au suivant,",
+  "arbitrer les blocages et conserver l'historique global.",
+  "",
+  "## ⚙️ L'ordre de passage",
+  "1. Recevoir la chaîne Kick à suivre : **Neon**",
+  "2. Agent 1 → liens vérifiés + métadonnées (un lien à la fois)",
+  "3. Agent 2 → stream modifié + passages retenus",
+  "4. Agent 3 → clips bruts",
+  "5. Agent 4 → short monté",
+  "6. Agent 5 → validation, ou renvoi aux agents 1, 3 et 4",
+  "7. Agent 6 → publication + performances",
+  "",
+  "## ⚖️ Règle d'arbitrage",
+  "Deux allers-retours maximum sur un même livrable.",
+  "Au troisième, on gèle et on m'appelle.",
+].join("\n");
+
+TEXTES.TABLEAU = [
+  "# 📊 Tableau de bord",
+  "",
+  "Un agent est **autonome** quand il enchaîne 10 exécutions sans un seul",
+  "incident. Le moindre faux pas remet sa série à zéro.",
+  "",
+  "| Agent | Statut | Série | Incidents |",
+  "|---|---|---|---|",
+  "| 1 — Collecte | 🟥 en rodage | 0 / 10 | 0 |",
+  "| 2 — Modification | 🟥 en rodage | 0 / 10 | 0 |",
+  "| 3 — Découpage | 🟥 en rodage | 0 / 10 | 2 |",
+  "| 4 — Montage | 🟥 en rodage | 0 / 10 | 2 |",
+  "| 5 — Vérification | 🟥 en rodage | 0 / 10 | 2 |",
+  "| 6 — Publication | 🟥 en rodage | 0 / 10 | 2 |",
+  "",
+  "🟥 en rodage · 🟧 en progrès · 🟨 presque · 🟩 autonome",
+].join("\n");
+
+const ETAPES = [
+  { phase:"A — Le coffre", titre:"Créer le coffre",
+    corps:`<p>Ouvre Obsidian. Sur l'écran d'accueil, clique <span class="ui">Créer un nouveau coffre</span> <span class="en">(Create new vault)</span>.</p>
+    <ul><li><b>Nom du coffre :</b> <kbd>Labo</kbd></li>
+    <li><b>Emplacement :</b> clique <span class="ui">Parcourir</span> et choisis ton <b>Bureau</b>. Tu le retrouveras facilement.</li></ul>
+    <p>Puis <span class="ui">Créer</span>.</p>`,
+    pourquoi:`Un coffre, c'est <b>juste un dossier</b> sur ton disque. Obsidian n'y ajoute rien de magique : il lit et écrit des fichiers texte ordinaires. Si Obsidian disparaissait demain, tes notes seraient toujours lisibles.` },
+
+  { phase:"A — Le coffre", titre:"Repérer les trois zones de l'écran",
+    corps:`<p>Ne clique rien. Regarde, et identifie :</p>
+    <ul>
+    <li><b>À gauche</b> — la liste de tes fichiers. C'est ton dossier, vu de l'intérieur.</li>
+    <li><b>Au milieu</b> — la note ouverte. C'est là que tu écris.</li>
+    <li><b>Tout à gauche, la barre d'icônes</b> — les boutons : nouvelle note, nouveau dossier, recherche.</li>
+    </ul>
+    <p>Si tu ne vois pas la liste à gauche, appuie sur <kbd>Ctrl</kbd>+<kbd>Maj</kbd>+<kbd>E</kbd> <span class="en">(Cmd+Maj+E sur Mac)</span>.</p>`,
+    pourquoi:`C'est l'étape que tout le monde saute, et c'est pour ça qu'on se perd ensuite. Trente secondes ici t'en économisent dix minutes plus tard.` },
+
+  { phase:"B — Le rangement", titre:"Créer le dossier « agents »",
+    corps:`<p>Dans la liste de gauche, clique sur l'icône <b>nouveau dossier</b> <span class="en">(New folder)</span> — en haut de la liste.</p>
+    <p>Nomme-le exactement : <kbd>agents</kbd> — en minuscules, sans accent, sans espace.</p>`,
+    pourquoi:`Minuscules et sans accent : c'est une habitude qui t'évitera des ennuis le jour où tu synchroniseras entre plusieurs appareils. Les noms de notes, eux, peuvent contenir ce que tu veux.` },
+
+  { phase:"B — Le rangement", titre:"Créer le dossier « journal »",
+    corps:`<p>Même geste : <b>nouveau dossier</b>, nommé <kbd>journal</kbd>.</p>
+    <p>Tu as maintenant deux dossiers vides. C'est tout le rangement dont tu as besoin pour commencer.</p>`,
+    pourquoi:`<b>agents</b> contient ce que tes agents <i>sont</i>. <b>journal</b> contiendra ce qu'ils <i>ont fait</i>. Ne jamais mélanger les deux : c'est ce qui permet de retrouver une erreur.` },
+
+  { phase:"C — Ton premier agent", titre:"Créer la note de l'agent 1",
+    corps:`<p><b>Clique d'abord sur le dossier <kbd>agents</kbd></b> pour le sélectionner — sinon la note ira ailleurs.</p>
+    <p>Puis clique <span class="ui">Nouvelle note</span> <span class="en">(New note)</span>.</p>
+    <p>Nomme-la : <kbd>Agent 1 — Collecte</kbd></p>`,
+    pourquoi:`Si la note atterrit à la racine au lieu du dossier <b>agents</b>, ce n'est pas grave : attrape-la dans la liste et fais-la glisser sur le dossier.` },
+
+  { phase:"C — Ton premier agent", titre:"Coller sa fiche",
+    corps:`<p>La note est ouverte et vide. Copie le texte ci-dessous, puis colle-le dedans avec <kbd>Ctrl</kbd>+<kbd>V</kbd> <span class="en">(Cmd+V sur Mac)</span>.</p>`,
+    coller:"AGENT1", collerNom:"La fiche complète de l'agent 1",
+    pourquoi:`Tu construis la structure toi-même, mais tu ne tapes pas 4 700 caractères à la main — personne n'apprend rien à recopier. Ce qui compte, c'est que <b>tu saches où ce texte se trouve</b> et comment le modifier.` },
+
+  { phase:"C — Ton premier agent", titre:"Lire les trois sections qui comptent",
+    corps:`<p>Fais défiler ta note et repère ces trois titres. Ce sont les seuls qui comptent vraiment :</p>
+    <ul>
+    <li><b>🎛️ Zone de comportement</b> — le bloc <code>prompt</code>. <b>C'est la seule chose qui change ce que fait l'agent.</b> Tout le reste est de la documentation.</li>
+    <li><b>🧬 Mémoire de l'agent</b> — ce qu'il a appris, et ce qu'il a raté. Ça se remplit avec le temps.</li>
+    <li><b>📊 Autonomie</b> — son compteur. 0 sur 10 aujourd'hui.</li>
+    </ul>
+    <p>Dans le bloc <code>prompt</code>, va tout en bas : tu y trouveras <b>« Cheminement — obligatoire »</b>. C'est ce qui oblige l'agent à expliquer son raisonnement avant de rendre son travail.</p>`,
+    pourquoi:`Sans ce bloc de cheminement, un agent qui se trompe te donne un résultat faux sans que tu puisses savoir <b>où</b> ça a dérapé. Avec lui, l'erreur est presque toujours visible dans ses décisions ou ses doutes.` },
+
+  { phase:"D — La toile", titre:"Créer le canevas",
+    corps:`<p>Clique sur la <b>racine du coffre</b> (le nom <kbd>Labo</kbd> tout en haut de la liste), pour ne pas créer la toile dans un dossier.</p>
+    <p>Ouvre le menu <span class="ui">⋯</span> en haut de la liste de fichiers, puis <span class="ui">Nouveau canevas</span> <span class="en">(New canvas)</span>.</p>
+    <p>Nomme-le : <kbd>Pipeline</kbd></p>`,
+    pourquoi:`Le canevas est un tableau blanc infini. Il ne contient pas tes notes : il les <i>montre</i>. Supprimer une carte du canevas n'efface pas la note.` },
+
+  { phase:"D — La toile", titre:"Poser l'agent 1 sur la toile",
+    corps:`<p>Le canevas est ouvert, vide. Depuis la liste de gauche, <b>fais glisser la note « Agent 1 — Collecte » sur la toile</b>.</p>
+    <p>Une carte apparaît, avec le contenu de la note dedans. Place-la <b>en haut</b> de l'espace.</p>
+    <p>Astuce : clique droit sur la carte → <span class="ui">Couleur</span> pour lui donner du bleu.</p>`,
+    pourquoi:`Ici le glisser-déposer fonctionne, parce qu'on déplace une note <i>déjà dans le coffre</i>. C'est différent d'importer un fichier venu de l'extérieur — c'est ce qui bloquait tout à l'heure.` },
+
+  { phase:"D — La toile", titre:"Poser l'orchestrateur au centre",
+    corps:`<p>Double-clique sur une zone vide au <b>centre</b> de la toile : une carte de texte apparaît.</p>
+    <p>Colle le texte ci-dessous dedans.</p>`,
+    coller:"ORCHESTRATEUR", collerNom:"La carte du centre",
+    pourquoi:`Une carte de texte vit <i>dans</i> le canevas, pas dans une note séparée. Pratique pour ce qui n'a pas besoin d'exister ailleurs.` },
+
+  { phase:"E — Les cinq autres", titre:"Répéter pour les agents 2 à 6",
+    corps:`<p>Tu connais le geste maintenant. Pour chacun des cinq agents restants :</p>
+    <ul>
+    <li>sélectionne le dossier <kbd>agents</kbd> → <span class="ui">Nouvelle note</span></li>
+    <li>nomme-la (<kbd>Agent 2 — Modification</kbd>, puis 3 — Découpage, 4 — Montage, 5 — Vérification, 6 — Publication)</li>
+    <li>colle sa fiche, puis fais-la glisser sur le canevas</li>
+    </ul>
+    <p>Les cinq textes à coller sont sur ta page du labo, section <b>« Copier dans Obsidian »</b> : <a href="https://claude.ai/code/artifact/7d7c56ea-22ad-41ee-bd20-a72e22d04323" target="_blank" rel="noopener">Le cercle des agents</a>. Un bouton par agent.</p>
+    <p>Sur la toile, dispose-les <b>en cercle</b> autour de l'orchestrateur, dans le sens des aiguilles d'une montre : 1 en haut, puis 2, 3, 4, 5, 6.</p>`,
+    pourquoi:`Rien ne t'oblige à tout faire d'un coup. Un agent par séance, c'est très bien — tu as dit toi-même vouloir avancer un à la fois.` },
+
+  { phase:"F — Le suivi", titre:"Créer le tableau de bord",
+    corps:`<p>À la <b>racine</b> du coffre, <span class="ui">Nouvelle note</span>, nommée <kbd>Tableau de bord</kbd>. Colle le texte ci-dessous.</p>`,
+    coller:"TABLEAU", collerNom:"Le tableau de bord",
+    pourquoi:`Ce tableau est ta seule mesure objective. Sans lui, « l'agent 3 s'améliore » est une impression ; avec lui, c'est un chiffre qu'on peut contredire.` },
+
+  { phase:"F — Le suivi", titre:"Créer le modèle de cheminement",
+    corps:`<p>Sélectionne le dossier <kbd>journal</kbd>, <span class="ui">Nouvelle note</span>, nommée <kbd>_modèle cheminement</kbd>. Colle le texte ci-dessous.</p>
+    <p>À chaque fois qu'un agent travaille, tu dupliqueras cette note et tu la rempliras.</p>`,
+    coller:"CHEMINEMENT", collerNom:"Le modèle de cheminement",
+    pourquoi:`Le tiret bas devant le nom fait remonter la note en haut de la liste : tu la retrouveras toujours en premier.` },
+
+  { phase:"F — Le suivi", titre:"Vérifier que tout est là",
+    corps:`<p>Regarde ta liste de fichiers. Tu dois voir :</p>
+    <ul>
+    <li>📁 <kbd>agents</kbd> — avec tes fiches d'agents dedans</li>
+    <li>📁 <kbd>journal</kbd> — avec <kbd>_modèle cheminement</kbd></li>
+    <li>🎨 <kbd>Pipeline</kbd> — ton canevas</li>
+    <li>📄 <kbd>Tableau de bord</kbd></li>
+    </ul>
+    <p>Ouvre <kbd>Pipeline</kbd> une dernière fois. Tes agents sont là, en cercle, autour de l'orchestrateur.</p>
+    <p><b>C'est ton labo. Tu l'as construit.</b></p>`,
+    pourquoi:`Si quelque chose manque, ce n'est pas grave : reviens à l'étape concernée, elle est toujours là. Rien de ce que tu as fait n'est perdu.` },
+];
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const CLE = "labo-guide-etapes";
+
+function lire(){
+  try { return JSON.parse(localStorage.getItem(CLE)) || []; } catch (e) { return []; }
+}
+function ecrire(v){
+  try { localStorage.setItem(CLE, JSON.stringify(v)); } catch (e) { /* navigation privée */ }
+}
+
+let faites = lire();
+const hote = document.getElementById("etapes");
+
+let phaseCourante = null;
+ETAPES.forEach((e, i) => {
+  if (e.phase !== phaseCourante) {
+    phaseCourante = e.phase;
+    const p = document.createElement("div");
+    p.className = "phase";
+    p.innerHTML = "<span>" + esc(e.phase) + "</span>";
+    hote.appendChild(p);
+  }
+
+  const art = document.createElement("article");
+  art.className = "etape";
+  art.dataset.i = i;
+
+  let bloc = "";
+  if (e.coller) {
+    const t = TEXTES[e.coller];
+    bloc =
+      '<div class="coller">' +
+        '<div class="coller-tete">' +
+          '<button type="button" class="btn-copie" data-cle="' + e.coller + '">📋 Copier</button>' +
+          '<span>' + esc(e.collerNom) + ' · ' + t.length + ' caractères</span>' +
+        '</div>' +
+        '<pre class="apercu">' + esc(t) + '</pre>' +
+      '</div>';
+  }
+
+  art.innerHTML =
+    '<button type="button" class="coche" aria-pressed="false" aria-label="Marquer l\'étape ' + (i + 1) + ' comme faite">' + (i + 1) + '</button>' +
+    '<h2>' + esc(e.titre) + '</h2>' +
+    '<div class="corps">' + e.corps + bloc +
+      (e.pourquoi ? '<div class="pourquoi"><b>Pourquoi :</b> ' + e.pourquoi + '</div>' : '') +
+    '</div>';
+
+  art.querySelector(".coche").addEventListener("click", () => basculer(i));
+  hote.appendChild(art);
+});
+
+function basculer(i){
+  const k = faites.indexOf(i);
+  if (k === -1) faites.push(i); else faites.splice(k, 1);
+  ecrire(faites);
+  peindre();
+}
+
+function peindre(){
+  document.querySelectorAll(".etape").forEach(art => {
+    const i = Number(art.dataset.i);
+    const ok = faites.includes(i);
+    art.classList.toggle("faite", ok);
+    const c = art.querySelector(".coche");
+    c.setAttribute("aria-pressed", ok);
+    c.textContent = ok ? "✓" : String(i + 1);
+  });
+  document.getElementById("n-faites").textContent = faites.length;
+  document.getElementById("n-total").textContent = ETAPES.length;
+  document.getElementById("rail").style.width = (100 * faites.length / ETAPES.length) + "%";
+}
+
+document.getElementById("raz").addEventListener("click", () => {
+  faites = [];
+  ecrire(faites);
+  peindre();
+});
+
+document.addEventListener("click", async ev => {
+  const b = ev.target.closest(".btn-copie");
+  if (!b) return;
+  const texte = TEXTES[b.dataset.cle];
+  try {
+    await navigator.clipboard.writeText(texte);
+    b.textContent = "✓ Copié";
+    b.classList.add("ok");
+    setTimeout(() => { b.textContent = "📋 Copier"; b.classList.remove("ok"); }, 2200);
+  } catch (e) {
+    const bloc = b.closest(".coller");
+    if (bloc.querySelector(".secours")) return;
+    const ta = document.createElement("textarea");
+    ta.className = "secours";
+    ta.readOnly = true;
+    ta.value = texte;
+    bloc.appendChild(ta);
+    ta.focus();
+    ta.select();
+    b.textContent = "Copie-le à la main ↓";
+  }
+});
+
+peindre();
+</script>
