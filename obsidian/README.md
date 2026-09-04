@@ -10,7 +10,7 @@ Chaque agent est une fiche que tu peux ouvrir, lire et **modifier individuelleme
 3. Ouvre le fichier **`IA Multi-Agents.canvas`**
 
 > ⚠️ Ouvre bien `obsidian/` comme racine du coffre, pas la racine du dépôt :
-> les chemins du Canvas (`agents/agent-1-ingestion.md`) sont relatifs à ce dossier.
+> les chemins du Canvas (`agents/agent-1-collecte.md`) sont relatifs à ce dossier.
 
 ## Contenu
 ```
@@ -18,8 +18,8 @@ obsidian/
 ├── IA Multi-Agents.canvas        ← la toile : cercle + centre + bulles
 ├── pipeline-orchestrateur.md     ← la carte du centre
 ├── agents/
-│   ├── agent-1-ingestion.md      🔵 transcript + timecodes
-│   ├── agent-2-analyse.md        🟢 moments forts + scoring
+│   ├── agent-1-collecte.md       🔵 liens Kick vérifiés
+│   ├── agent-2-modification.md   🟢 stream modifié
 │   ├── agent-3-decoupage.md      🟡 clips bruts
 │   ├── agent-4-montage.md        🔴 short monté
 │   ├── agent-5-verification.md   🟣 short validé + métadonnées
@@ -35,9 +35,9 @@ obsidian/
 
 ## La disposition
 ```
-                    🔵 Agent 1 — Ingestion
+                    🔵 Agent 1 — Collecte
        🩵 Agent 6                        🟢 Agent 2
-       Publication      ⚙️ Pipeline /      Analyse
+       Publication      ⚙️ Pipeline /   Modification
                         Orchestrateur
        🟣 Agent 5                        🟡 Agent 3
        Vérification                       Découpage
@@ -51,9 +51,9 @@ obsidian/
 ## Le flux
 | De → à | Bulle |
 |---|---|
-| Orchestrateur → Agent 1 | Vidéo source |
-| Agent 1 → Agent 2 | Transcript + timecodes |
-| Agent 2 → Agent 3 | Moments forts + scoring |
+| Orchestrateur → Agent 1 | Chaînes Kick à suivre |
+| Agent 1 → Agent 2 | Liens vérifiés + métadonnées |
+| Agent 2 → Agent 3 | Stream modifié + passages |
 | Agent 3 → Agent 4 | Clips bruts |
 | Agent 4 → Agent 5 | Short monté |
 | Agent 5 → Agent 6 | Short validé + métadonnées |

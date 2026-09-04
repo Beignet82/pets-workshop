@@ -9,8 +9,8 @@ ne l'écris pas à la main, il serait écrasé.
 
 | Agent | Statut | Progression | Série | Incidents | Dernière leçon |
 |---|---|---|---|---|---|
-| [[agent-1-ingestion|1 — Ingestion & Transcription]] | 🟥 en rodage | ▱▱▱▱▱▱▱▱▱▱ | 0 / 10 | 2 | 2026-09-04 |
-| [[agent-2-analyse|2 — Analyse & Détection des moments forts]] | 🟥 en rodage | ▱▱▱▱▱▱▱▱▱▱ | 0 / 10 | 2 | 2026-09-04 |
+| [[agent-1-collecte|1 — Collecte des liens Kick]] | 🟥 en rodage | ▱▱▱▱▱▱▱▱▱▱ | 0 / 10 | 0 | — |
+| [[agent-2-modification|2 — Modification des streams collectés]] | 🟥 en rodage | ▱▱▱▱▱▱▱▱▱▱ | 0 / 10 | 0 | — |
 | [[agent-3-decoupage|3 — Découpage & Extraction des clips]] | 🟥 en rodage | ▱▱▱▱▱▱▱▱▱▱ | 0 / 10 | 2 | 2026-09-04 |
 | [[agent-4-montage|4 — Montage & Habillage]] | 🟥 en rodage | ▱▱▱▱▱▱▱▱▱▱ | 0 / 10 | 2 | 2026-09-04 |
 | [[agent-5-verification|5 — Vérification & Contrôle qualité]] | 🟥 en rodage | ▱▱▱▱▱▱▱▱▱▱ | 0 / 10 | 2 | 2026-09-04 |

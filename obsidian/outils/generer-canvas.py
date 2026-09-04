@@ -18,8 +18,8 @@ SORTIE = "IA Multi-Agents.canvas"
 
 AGENTS = [
     # (id, fichier, couleur, libellé de la bulle sortante)
-    ("a1", "agents/agent-1-ingestion.md",   "#2b6cff", "Transcript + timecodes"),
-    ("a2", "agents/agent-2-analyse.md",     "#22a06b", "Moments forts + scoring"),
+    ("a1", "agents/agent-1-collecte.md",     "#2b6cff", "Liens vérifiés + métadonnées"),
+    ("a2", "agents/agent-2-modification.md", "#22a06b", "Stream modifié + passages"),
     ("a3", "agents/agent-3-decoupage.md",   "#e5b800", "Clips bruts"),
     ("a4", "agents/agent-4-montage.md",     "#e03131", "Short monté"),
     ("a5", "agents/agent-5-verification.md", "#8b5cf6", "Short validé + métadonnées"),
@@ -110,8 +110,8 @@ nodes.append({
         "**Centre** : le pipeline / orchestrateur.\n"
         "**Bulles** : ce qui transite d'un agent au suivant.\n\n"
         "| | Agent |\n|---|---|\n"
-        "| 🔵 | 1 — Ingestion |\n"
-        "| 🟢 | 2 — Analyse |\n"
+        "| 🔵 | 1 — Collecte Kick |\n"
+        "| 🟢 | 2 — Modification |\n"
         "| 🟡 | 3 — Découpage |\n"
         "| 🔴 | 4 — Montage |\n"
         "| 🟣 | 5 — Vérification |\n"
@@ -144,7 +144,7 @@ for i, (aid, _, couleur, bulle) in enumerate(AGENTS):
 
 # spokes de supervision, orchestrateur <-> agents
 for aid, _, _, _ in AGENTS:
-    label = "Vidéo source" if aid == "a1" else None
+    label = "Chaînes à suivre" if aid == "a1" else None
     lien(f"e-orch-{aid}", "orchestrateur", aid, label, "#9ca3af")
 
 # boucle de feedback de l'agent 5 vers les agents 1, 3 et 4

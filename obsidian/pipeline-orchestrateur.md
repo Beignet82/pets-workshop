@@ -38,9 +38,9 @@ Lancer le pipeline, faire circuler les livrables d'un agent au suivant, arbitrer
 
 ### Exécuter le pipeline
 ```
-1. Recevoir la vidéo source
-2. Agent 1 → transcript + timecodes
-3. Agent 2 → moments forts + scoring
+1. Recevoir les chaînes Kick à suivre (Neon, etc.)
+2. Agent 1 → liens Kick vérifiés + métadonnées
+3. Agent 2 → stream modifié + passages retenus
 4. Agent 3 → clips bruts
 5. Agent 4 → short monté
 6. Agent 5 → validation ou renvoi (max 2 boucles)
@@ -65,7 +65,7 @@ Tu ne modifies jamais le contenu d'un livrable produit par un agent.
 ```
 
 ## 🔗 Communication
-Envoie à : [[agents/agent-1-ingestion|Agent 1 — Ingestion]] — bulle : « Vidéo source »
+Envoie à : [[agents/agent-1-collecte|Agent 1 — Collecte]] — bulle : « Chaînes à suivre »
 Reçoit de : [[agents/agent-6-publication|Agent 6 — Publication]] — bulle : « Publication + performances »
 Supervise : tous les agents (liens fins vers le centre du cercle)
 
